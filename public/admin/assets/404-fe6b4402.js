@@ -1,0 +1,1 @@
+import{a0 as s,o as c,h as o,l as e,ac as t}from"./index-8e7e92d0.js";const a={},r={class:"relative flex w-full"},_=e("h1",null,[t(" 404 "),e("br"),t(" 404 "),e("br"),t(" 404 "),e("br")],-1),n=[_];function l(d,f){return c(),o("div",r,n)}const h=s(a,[["render",l]]);export{h as default};

@@ -1,0 +1,70 @@
+{
+    "frames": {
+      "bar1": {
+        "frame": { "x": 0, "y": 140, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "bar2": {
+        "frame": { "x": 0, "y": 280, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "bar3": {
+        "frame": { "x": 0, "y": 420, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "bell": {
+        "frame": { "x": 0, "y": 560, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "cherry": {
+        "frame": { "x": 0, "y": 700, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "orange": {
+        "frame": { "x": 0, "y": 840, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "seven": {
+        "frame": { "x": 0, "y": 980, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "star": {
+        "frame": { "x": 0, "y": 1120, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "target": {
+        "frame": { "x": 0, "y": 1260, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      },
+      "watermelon": {
+        "frame": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "spriteSourceSize": { "x": 0, "y": 0, "w": 140, "h": 140 },
+        "sourceSize": { "w": 140, "h": 140 },
+        "anchor": { "x": 70, "y": 70 }
+      }
+    },
+    "meta": {
+      "image": "../img/icon_tile.png",
+      "format": "RGBA8888",
+      "size": { "w": 140, "h": 1540 },
+      "scale": "1"
+    }
+  }

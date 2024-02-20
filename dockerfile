@@ -1,0 +1,37 @@
+FROM node:latest
+
+# git 설지
+RUN apt-get update 
+RUN apt-get install -y git
+
+# add credentials on build 
+#ARG SSH_PRIVATE_KEY
+
+#RUN mkdir /root/.ssh/ 
+#RUN echo "${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}" > ~/.ssh/id_rsa 
+#RUN chmod 600 ~/.ssh/id_rsa 
+
+# make sure your domain is accepted 
+#RUN touch /root/.ssh/known_hosts 
+#RUN ssh-keyscan vs-ssh.visualstudio.com >> /root/.ssh/known_hosts 
+#RUN git clone [azure-devops-account-name]@vs-ssh.visualstudio.com:v3/[azure-devops-account-name]/[project-name]/[project-name] 
+
+#alpine
+#RUN apk add --no-cache git
+#RUN apk update 
+#RUN apk upgrade
+#RUN apk add git
+
+RUN git clone https://2g4ps6sw5bup6h7uqq2df43cjhoblqcjkuxzmbxikejx3wmaivoa@dev.azure.com/SLOT-WEB/slot/_git/slot ./app
+
+# Create app directory
+RUN mkdir -p /slot
+WORKDIR /slot
+
+# Install app dependencies
+ADD ./entryPoint.sh /slot
+RUN chmod +x /slot/entryPoint.sh
+
+WORKDIR /slot/
+
+CMD [ "./entryPoint.sh" ];
