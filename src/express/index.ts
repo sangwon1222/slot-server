@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import proxy from "express-http-proxy";
 import history from "connect-history-api-fallback";
-const listenPort = 4000;
+const listenPort = 80;
 const app = express();
 const server = http.createServer(app);
 
