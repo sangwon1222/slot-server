@@ -33,7 +33,7 @@ async function start() {
   app.use(express.static("/"));
 
   // app.use("/", history());
-  app.use("/", express.static("/"));
+  app.use("/", express.static("public/client/"));
 
   app.listen(listenPort, async () => {
     const env =
