@@ -30,11 +30,11 @@ async function start() {
   mainRouteConfig(app);
 
   app.use("/api", router);
-  app.use(express.static("./public"));
+  app.use(express.static("public"));
 
   // app.use("/", history());
-  app.use("/", express.static("./public/client"));
-  app.use("/admin", express.static("./public/admin"));
+  app.use("/", express.static("public"));
+  app.use("/admin", express.static("public/admin"));
 
   app.listen(listenPort, async () => {
     const env =
