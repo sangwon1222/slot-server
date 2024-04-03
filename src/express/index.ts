@@ -29,11 +29,9 @@ async function start() {
   // 순서 주의
   mainRouteConfig(app);
 
-  app.use("/api", router);
   app.use(express.static("/"));
-
-  // app.use("/", history());
   app.use("/", express.static("public/client/"));
+  app.use("/api", router);
 
   app.listen(listenPort, async () => {
     const env =
