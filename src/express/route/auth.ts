@@ -33,7 +33,7 @@ router.all(
 );
 
 // [logApi, verifyAccessToken],
-router.get(
+router.post(
   "/get-user-list",
   async (req: express.Request, res: express.Response) => {
     if ((req as any).tokenData.grade == "admin") {
