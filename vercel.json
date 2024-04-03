@@ -11,10 +11,17 @@
     }
   ],
   "routes": [
-    { "handle": "filesystem" },
     {
-      "src": "/.*",
-      "dest": "/"
+      "src": "/api/(.*)",
+      "dest": "app.ts"
+    },
+    {
+      "src": "/",
+      "dest": "public/index.html"
+    },
+    {
+      "src": "/(.+)",
+      "dest": "public/$1"
     }
   ]
 }
