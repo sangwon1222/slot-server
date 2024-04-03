@@ -29,7 +29,7 @@ async function start() {
   // 순서 주의
   mainRouteConfig(app);
 
-  // app.use(express.static("public"));
+  app.use(express.static("public"));
   app.use("/", express.static("public/client/"));
   app.use("/api", router);
 
