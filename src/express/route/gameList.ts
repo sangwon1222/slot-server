@@ -1,11 +1,8 @@
 import express from "express";
-import {
-  logApi,
-  verifyAccessToken,
-} from "@/util/express";
-import { paramCheck } from "@/util/errors";
+import { paramCheck } from "../../util/errors";
+import { logApi, verifyAccessToken } from "../../util/express";
 
-import * as gameList from "@/controller/gameList";
+import * as gameList from "../../controller/gameList";
 
 const router = express.Router();
 
@@ -16,7 +13,7 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    res.json( await gameList.getGameList(param) );
+    res.json(await gameList.getGameList(param));
   }
 );
 
@@ -26,17 +23,16 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    const chk = paramCheck(param, [ "name" ,"turnCount", "score"]);
+    const chk = paramCheck(param, ["name", "turnCount", "score"]);
     if (chk != null) {
-      console.log('[route gameList /create-game]',chk)
+      console.log("[route gameList /create-game]", chk);
       res.json(chk);
       return;
     }
 
-    res.json( await gameList.createGame(param) );
+    res.json(await gameList.createGame(param));
   }
 );
-
 
 // 하나의 GAME 정보 가져오기
 router.all(
@@ -44,34 +40,33 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    const chk = paramCheck(param, [ "name"]);
+    const chk = paramCheck(param, ["name"]);
     if (chk != null) {
-      console.log('[route gameList /get-game]',chk)
+      console.log("[route gameList /get-game]", chk);
       res.json(chk);
       return;
     }
 
-    res.json( await gameList.getGame(param) );
+    res.json(await gameList.getGame(param));
   }
 );
 
 // GAME 내용 추가
 router.all(
   "/add-game-contents",
-  [ verifyAccessToken],
+  [verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    const chk = paramCheck(param, [ "name","list" ]);
+    const chk = paramCheck(param, ["name", "list"]);
     if (chk != null) {
-      console.log('[route gameList /add-game-contents]',chk)
+      console.log("[route gameList /add-game-contents]", chk);
       res.json(chk);
       return;
     }
 
-    res.json( await gameList.insertGame(param) );
+    res.json(await gameList.insertGame(param));
   }
 );
-
 
 // 게임 삭제
 router.all(
@@ -79,14 +74,14 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    const chk = paramCheck(param, [ "name" ]);
+    const chk = paramCheck(param, ["name"]);
     if (chk != null) {
-      console.log('[route gameList /delete-game]',chk)
+      console.log("[route gameList /delete-game]", chk);
       res.json(chk);
       return;
     }
 
-    res.json( await gameList.deleteGame(param.name) );
+    res.json(await gameList.deleteGame(param.name));
   }
 );
 
@@ -96,7 +91,7 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    res.json( await gameList.getPrizeList(param) );
+    res.json(await gameList.getPrizeList(param));
   }
 );
 
@@ -106,7 +101,7 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    res.json( await gameList.getPrize(param) );
+    res.json(await gameList.getPrize(param));
   }
 );
 
@@ -116,10 +111,9 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    res.json( await gameList.getRandomPrize(param) );
+    res.json(await gameList.getRandomPrize(param));
   }
 );
-
 
 // PRIZE 업데이트
 router.all(
@@ -127,14 +121,14 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    const chk = paramCheck(param, [ "rowData" ]);
+    const chk = paramCheck(param, ["rowData"]);
     if (chk != null) {
-      console.log('[route gameList /save-prize]',chk)
+      console.log("[route gameList /save-prize]", chk);
       res.json(chk);
       return;
     }
 
-    res.json( await gameList.savePrize(param.rowData) );
+    res.json(await gameList.savePrize(param.rowData));
   }
 );
 
@@ -144,16 +138,15 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    const chk = paramCheck(param, [ "name" ]);
+    const chk = paramCheck(param, ["name"]);
     if (chk != null) {
-      console.log('[route gameList /delete-prize]',chk)
+      console.log("[route gameList /delete-prize]", chk);
       res.json(chk);
       return;
     }
-    res.json( await gameList.deletePrize(param.name) );
+    res.json(await gameList.deletePrize(param.name));
   }
 );
-
 
 // SCORE 조회
 router.all(
@@ -161,7 +154,7 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    res.json( await gameList.getScore(param.score) );
+    res.json(await gameList.getScore(param.score));
   }
 );
 
@@ -170,10 +163,9 @@ router.all(
   "/add-score",
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
-    res.json( await gameList.addScore(req.body.list) );
+    res.json(await gameList.addScore(req.body.list));
   }
 );
-
 
 // SCORE 삭제
 router.all(
@@ -181,10 +173,8 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
-    res.json( await gameList.deleteScore(param.idxList) );
+    res.json(await gameList.deleteScore(param.idxList));
   }
 );
-
-
 
 export default router;

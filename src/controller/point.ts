@@ -1,5 +1,5 @@
-import * as DB from "@/util/DB";
-import { NoError, APIError, SQLError } from "@/util/errors";
+import * as DB from "../util/DB";
+import { APIError, NoError, SQLError } from "../util/errors";
 
 function checkQueryError(result: DB.QueryReturn) {
   if (result.err) {
@@ -138,7 +138,7 @@ export async function initDB() {
   for (const q_ in queries) {
     console.log("> init point DB:", q_);
     const result = await DB.query((queries as any)[q_]);
-    
+
     const err = checkQueryError(result);
     if (err) return err;
   }

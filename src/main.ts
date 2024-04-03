@@ -1,7 +1,7 @@
-import * as auth from "@/controller/auth";
-import * as gameList from "@/controller/gameList";
-import * as point from "@/controller/point";
 import config from "./config";
+import * as auth from "./controller/auth";
+import * as gameList from "./controller/gameList";
+import * as point from "./controller/point";
 import { start } from "./express";
 import * as DB from "./util/DB";
 

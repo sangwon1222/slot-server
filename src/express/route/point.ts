@@ -1,11 +1,7 @@
 import express from "express";
-import { logApi, getFingerprint, verifyAccessToken } from "@/util/express";
-import * as DB from "@/util/DB";
-import { NoError, APIError, SQLError, paramCheck } from "@/util/errors";
-import { jwt } from "@/util/Token";
-
-import * as auth from "@/controller/auth";
-import * as point from "@/controller/point";
+import * as point from "../../controller/point";
+import { paramCheck } from "../../util/errors";
+import { logApi, verifyAccessToken } from "../../util/express";
 
 const router = express.Router();
 
