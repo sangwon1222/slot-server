@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "dev": "nodemon -L --watch src --exec ts-node -r tsconfig-paths/register src/main.ts",
-    "start": "node app.ts"
+    "start": "node --experimental-modules app.ts"
   },
   "author": "",
   "license": "ISC",
