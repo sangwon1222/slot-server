@@ -1,9 +1,10 @@
+import * as DB from "@/util/DB";
 import express from "express";
+import * as auth from "../../controller/auth";
+import { jwt } from "../../util/Token";
+import { setDecode, setEncode } from "../../util/decode";
 import { paramCheck } from "../../util/errors";
 import { getFingerprint } from "../../util/express";
-
-import * as auth from "../../controller/auth";
-import { setDecode } from "../../util/decode";
 
 const router = express.Router();
 
@@ -177,115 +178,113 @@ router.all(
   }
 );
 
-// // 로그인 by refreshToken
-// router.all(
-//   "/loginByToken",
-//   [],
-//   async (req: express.Request, res: express.Response) => {
-//     const param = req.body;
-//     const chk = paramCheck(param, ["refreshToken"]);
-//     if (chk != null) {
-//       res.json(chk);
-//       return;
-//     }
+// 로그인 by refreshToken
+router.all(
+  "/loginByToken",
+  [],
+  async (req: express.Request, res: express.Response) => {
+    const param = req.body;
+    const chk = paramCheck(param, ["refreshToken"]);
+    if (chk != null) {
+      res.json(chk);
+      return;
+    }
 
-//     let gradeLimit = 0;
-//     if (param.gradeLimit) {
-//       gradeLimit = param.gradeLimit;
-//     }
+    let gradeLimit = 0;
+    if (param.gradeLimit) {
+      gradeLimit = param.gradeLimit;
+    }
 
-//     const fingerPrint = getFingerprint(req);
-//     res.json(
-//       await auth.loginByRefreshToken(
-//         param.refreshToken,
-//         fingerPrint,
-//         gradeLimit
-//       )
-//     );
-//   }
-// );
+    const fingerPrint = getFingerprint(req);
+    res.json(
+      await auth.loginByRefreshToken(
+        param.refreshToken,
+        fingerPrint,
+        gradeLimit
+      )
+    );
+  }
+);
 
 // 유저 존재여부 체크
-// router.all(
-//   "/check",
-//   [],
-//   async (req: express.Request, res: express.Response) => {
-//     const param = req.body;
-//     if (!param.userID || !param.pwd) {
-//       res.json({
-//         ...APIError,
-//         ok: false,
-//         err_detail: "사용자아이디 또는 비밀번호정보가 없습니다.",
-//       });
-//     }
-//     const result = await DB.query(
-//       `SELECT * FROM user WHERE userID=? AND pwd=?`,
-//       [param.userID, param.pwd]
-//     );
-//     res.json({
-//       ...NoError,
-//       ok: true,
-//       count: result.results.length,
-//     });
-//   }
-// );
+router.all(
+  "/check",
+  [],
+  async (req: express.Request, res: express.Response) => {
+    const param = req.body;
+    if (!param.userID || !param.pwd) {
+      res.json({
+        ok: false,
+        err_detail: "사용자아이디 또는 비밀번호정보가 없습니다.",
+      });
+    }
+    const result = await DB.query(
+      `SELECT * FROM user WHERE userID=? AND pwd=?`,
+      [param.userID, param.pwd]
+    );
+    res.json({
+      ok: true,
+      count: result.results.length,
+    });
+  }
+);
 
-// router.all(
-//   "/reissue-access-token",
-//   [],
-//   async (req: express.Request, res: express.Response) => {
-//     /**올바른 refresh token이 들어왔는지 체크 */
-//     if (req.headers.refresh) {
-//       const data = await jwt.verify(req.headers.refresh as string, "refresh");
-//       console.log(data);
-//       if (data == null) res.json({ ok: false, msg: "refresh token expired" });
-//     }
+router.all(
+  "/reissue-access-token",
+  [],
+  async (req: express.Request, res: express.Response) => {
+    /**올바른 refresh token이 들어왔는지 체크 */
+    if (req.headers.refresh) {
+      const data = await jwt.verify(req.headers.refresh as string, "refresh");
+      console.log(data);
+      if (data == null) res.json({ ok: false, msg: "refresh token expired" });
+    }
 
-//     /**기존 access token이 올바른 token인지 체크 */
-//     if (req.headers.authorization && req.headers.refresh) {
-//       const expiredAccessToken = req.headers.authorization;
-//       const refreshToken = req.headers.refresh as string;
-//       const accessDecode = jwt.getParsing(expiredAccessToken);
-//       const refreshDecode = jwt.getParsing(refreshToken);
-//       const check =
-//         accessDecode.userID == refreshDecode.userID &&
-//         accessDecode.grade == refreshDecode.grade &&
-//         accessDecode.fingerPrint == refreshDecode.fingerPrint;
+    /**기존 access token이 올바른 token인지 체크 */
+    if (req.headers.authorization && req.headers.refresh) {
+      const expiredAccessToken = req.headers.authorization;
+      const refreshToken = req.headers.refresh as string;
+      const accessDecode = jwt.getParsing(expiredAccessToken);
+      const refreshDecode = jwt.getParsing(refreshToken);
+      const check =
+        accessDecode.userID == refreshDecode.userID &&
+        accessDecode.grade == refreshDecode.grade &&
+        accessDecode.fingerPrint == refreshDecode.fingerPrint;
 
-//       /**올바른 access token이지만 기간 만료 => refresh 재발행 */
+      /**올바른 access token이지만 기간 만료 => refresh 재발행 */
 
-//       if (check) {
-//         const newAccessToken = await jwt.createAccessToken({
-//           userID: refreshDecode.userID,
-//           grade: refreshDecode.grade,
-//           fingerPrint: refreshDecode.fingerPrint,
-//         });
+      if (check) {
+        const newAccessToken = await jwt.createAccessToken({
+          userID: refreshDecode.userID,
+          grade: refreshDecode.grade,
+          fingerPrint: refreshDecode.fingerPrint,
+        });
 
-//         const userData = await auth.getUserList(refreshDecode.userID);
-//         console.log(userData);
-//         console.log(userData.data);
+        const userData = await auth.getUserList(refreshDecode.userID);
+        console.log(userData);
+        console.log(userData.data);
 
-//         const sendData = JSON.stringify({
-//           userID: refreshDecode.userID,
-//           grade: refreshDecode.grade,
-//           prizeTurn: userData.data.prizeTurn,
-//           turnInPrize: userData.data.turnInPrize,
-//           currentGroupIndex: userData.data.currentGroupIndex,
-//           gameTable: userData.data.gameTable,
-//           refreshToken: refreshToken,
-//           accessToken: newAccessToken,
-//         });
-//         const data = setEncode(sendData, "login-info");
-//         res.json({ ok: true, data: data });
-//       } else {
-//         /**기존 access token 다름 */
-//         res.json({ ok: false, msg: "not match access token" });
-//       }
-//     } else {
-//       /** header에 token정보 없음 */
-//       res.json({ ok: false, msg: "token undefined" });
-//     }
-//   }
-// );
+        const sendData = JSON.stringify({
+          userID: refreshDecode.userID,
+          grade: refreshDecode.grade,
+          prizeTurn: userData.data.prizeTurn,
+          turnInPrize: userData.data.turnInPrize,
+          currentGroupIndex: userData.data.currentGroupIndex,
+          gameTable: userData.data.gameTable,
+          refreshToken: refreshToken,
+          accessToken: newAccessToken,
+        });
+        const data = setEncode(sendData, "login-info");
+        res.json({ ok: true, data: data });
+      } else {
+        /**기존 access token 다름 */
+        res.json({ ok: false, msg: "not match access token" });
+      }
+    } else {
+      /** header에 token정보 없음 */
+      res.json({ ok: false, msg: "token undefined" });
+    }
+  }
+);
 
 export default router;
