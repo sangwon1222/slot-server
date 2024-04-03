@@ -16,7 +16,7 @@
       "dest": "public/client/"
     },
     {
-      "src": "/",
+      "src": "/admin",
       "dest": "public/admin/"
     },
     {
