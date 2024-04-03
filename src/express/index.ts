@@ -1,4 +1,3 @@
-import history from "connect-history-api-fallback";
 import cors from "cors";
 import express from "express";
 const listenPort = 3000;
@@ -31,11 +30,11 @@ async function start() {
   mainRouteConfig(app);
 
   app.use("/api", router);
-  app.use(express.static("public"));
+  app.use(express.static("./public"));
 
-  app.use("/", history());
-  app.use("/", express.static("public/client"));
-  app.use("/admin", express.static("public/admin"));
+  // app.use("/", history());
+  app.use("/", express.static("./public/client"));
+  app.use("/admin", express.static("./public/admin"));
 
   app.listen(listenPort, async () => {
     const env =
