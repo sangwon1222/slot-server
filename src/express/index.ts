@@ -30,7 +30,6 @@ async function start() {
   mainRouteConfig(app);
 
   app.use(express.static("public"));
-  app.use("/", express.static("public/client/"));
   app.use("/api", router);
 
   app.listen(listenPort, async () => {
