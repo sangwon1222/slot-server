@@ -10,22 +10,5 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "public/client/"
-    },
-    {
-      "src": "/admin",
-      "dest": "public/admin/"
-    },
-    {
-      "src": "/(.+)",
-      "dest": "public/$1"
-    },
-    {
-      "src": "/api/(.*)",
-      "dest": "app.ts"
-    }
-  ]
+  "routes": []
 }
