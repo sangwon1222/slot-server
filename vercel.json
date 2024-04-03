@@ -13,7 +13,11 @@
   "routes": [
     {
       "src": "/",
-      "dest": "public/client/index.html"
+      "dest": "public/client/"
+    },
+    {
+      "src": "/",
+      "dest": "public/admin/"
     },
     {
       "src": "/(.+)",
