@@ -27,3 +27,4 @@ yarn.lock
 package-lock.json
 _mysql_data
 _mysql_initdb.d
+.vercel
