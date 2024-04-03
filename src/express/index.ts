@@ -1,10 +1,8 @@
 import history from "connect-history-api-fallback";
 import cors from "cors";
 import express from "express";
-import http from "http";
 const listenPort = 3000;
 const app = express();
-const server = http.createServer(app);
 
 function mainRouteConfig(app: express.Express) {
   app.use(
@@ -28,27 +26,22 @@ function mainRouteConfig(app: express.Express) {
 
 import router from "./route";
 
-function initRouter(app: express.Express) {
+async function start() {
+  // 순서 주의
+  mainRouteConfig(app);
+
   app.use("/api", router);
   app.use(express.static("public"));
 
   app.use("/", history());
   app.use("/", express.static("public/client"));
   app.use("/admin", express.static("public/admin"));
-}
 
-async function start(): Promise<http.Server> {
-  // 순서 주의
-  mainRouteConfig(app);
-  initRouter(app);
-
-  server.listen(listenPort, async () => {
+  app.listen(listenPort, async () => {
     const env =
       process.env.NODE_ENV == "production" ? `production` : `development`;
     console.log(`server started ${env} [${listenPort}]`);
   });
-
-  return server;
 }
 
 export { start };

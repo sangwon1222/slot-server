@@ -1,12 +1,7 @@
 import express from "express";
 import * as DB from "../../util/DB";
 import { APIError, NoError, paramCheck } from "../../util/errors";
-import {
-  checkAdmin,
-  getFingerprint,
-  logApi,
-  verifyAccessToken,
-} from "../../util/express";
+import { getFingerprint } from "../../util/express";
 
 import * as auth from "../../controller/auth";
 import { setDecode, setEncode } from "../../util/decode";
@@ -18,7 +13,7 @@ const router = express.Router();
 
 router.all(
   "/get-user-turn-data",
-  [logApi, verifyAccessToken],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     res.json(await auth.getUserTurnData(param.userID));
@@ -27,16 +22,17 @@ router.all(
 
 router.all(
   "/update-reel-data",
-  [logApi, verifyAccessToken],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     res.json(await auth.updateReelData(param.userID));
   }
 );
 
+// [logApi, verifyAccessToken],
 router.all(
   "/get-user-list",
-  [logApi, verifyAccessToken],
+  [],
   async (req: express.Request, res: express.Response) => {
     console.log((req as any).tokenData.grade);
     console.log((req as any).tokenData.userID);
@@ -50,7 +46,7 @@ router.all(
 
 router.all(
   "/regist-game",
-  [logApi, verifyAccessToken],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     res.json(await auth.registGame(param.userID, param.gameName));
@@ -60,7 +56,7 @@ router.all(
 // 목록
 router.all(
   "/listup",
-  [logApi, verifyAccessToken],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     const chk = paramCheck(param, ["start", "count"]);
@@ -77,7 +73,7 @@ router.all(
 // 추가
 router.all(
   "/signUp",
-  [logApi],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     const l = JSON.parse(setDecode(param.l, "signup-info") as string);
@@ -96,7 +92,7 @@ router.all(
 // 삭제
 router.all(
   "/remove",
-  [logApi, verifyAccessToken, checkAdmin],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
 
@@ -113,7 +109,7 @@ router.all(
 // 로그인
 router.all(
   "/login",
-  [logApi],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     const l = param.l;
@@ -133,7 +129,7 @@ router.all(
 // 로그인 by refreshToken
 router.all(
   "/loginByToken",
-  [logApi],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     const chk = paramCheck(param, ["refreshToken"]);
@@ -165,7 +161,7 @@ router.all(
 // 유저 존재여부 체크
 router.all(
   "/check",
-  [logApi],
+  [],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
     if (!param.userID || !param.pwd) {
@@ -189,7 +185,7 @@ router.all(
 
 router.all(
   "/reissue-access-token",
-  [logApi],
+  [],
   async (req: express.Request, res: express.Response) => {
     /**올바른 refresh token이 들어왔는지 체크 */
     if (req.headers.refresh) {
