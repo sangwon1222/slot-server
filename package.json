@@ -2,9 +2,10 @@
   "name": "slot-deploy",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
-    "dev": "nodemon -L --watch src --exec ts-node -r tsconfig-paths/register src/main.ts"
+    "dev": "nodemon -L --watch src --exec ts-node -r tsconfig-paths/register src/main.ts",
+    "start": "node app.ts"
   },
   "author": "",
   "license": "ISC",

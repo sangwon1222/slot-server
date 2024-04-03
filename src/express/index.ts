@@ -1,9 +1,8 @@
-import http from "http";
-import express from "express";
-import cors from "cors";
-import proxy from "express-http-proxy";
 import history from "connect-history-api-fallback";
-const listenPort = 4000;
+import cors from "cors";
+import express from "express";
+import http from "http";
+const listenPort = 3000;
 const app = express();
 const server = http.createServer(app);
 
@@ -25,7 +24,6 @@ function mainRouteConfig(app: express.Express) {
       credentials: true,
     })
   );
-
 }
 
 import router from "./route";
