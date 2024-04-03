@@ -33,12 +33,9 @@ router.all(
 );
 
 // [logApi, verifyAccessToken],
-router.all(
+router.get(
   "/get-user-list",
-  [],
   async (req: express.Request, res: express.Response) => {
-    console.log((req as any).tokenData.grade);
-    console.log((req as any).tokenData.userID);
     if ((req as any).tokenData.grade == "admin") {
       res.json(await auth.getUserList());
     } else {
@@ -46,6 +43,19 @@ router.all(
     }
   }
 );
+// router.all(
+//   "/get-user-list",
+//   [],
+//   async (req: express.Request, res: express.Response) => {
+//     console.log((req as any).tokenData.grade);
+//     console.log((req as any).tokenData.userID);
+//     if ((req as any).tokenData.grade == "admin") {
+//       res.json(await auth.getUserList());
+//     } else {
+//       res.json(await auth.getUserList((req as any).tokenData.userID));
+//     }
+//   }
+// );
 
 router.all(
   "/regist-game",
