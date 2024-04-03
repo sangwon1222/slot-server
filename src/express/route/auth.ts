@@ -10,6 +10,9 @@ import { jwt } from "../../util/Token";
 const router = express.Router();
 
 /*[ /api/user ]*/
+router.get("/test", (_req, res) => {
+  res.json({ ok: true, msg: "test", data: ["asd", "qwe", "zxvv"] });
+});
 
 router.all(
   "/get-user-turn-data",
