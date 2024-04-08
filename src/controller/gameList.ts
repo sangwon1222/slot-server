@@ -119,6 +119,7 @@ export async function getGame({ name, groupIdx }: any) {
     const result = getQuery.err
       ? { ok: false, msg: getQuery.err.message }
       : { ...NoError, ok: true, data: getQuery.results };
+    console.log(result);
     return result;
   } catch (e) {
     return { ok: false, data: [], msg: e };

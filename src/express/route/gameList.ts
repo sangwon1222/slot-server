@@ -40,6 +40,7 @@ router.all(
   [logApi, verifyAccessToken],
   async (req: express.Request, res: express.Response) => {
     const param = req.body;
+    console.log(param);
     const chk = paramCheck(param, ["name"]);
     if (chk != null) {
       console.log("[route gameList /get-game]", chk);
